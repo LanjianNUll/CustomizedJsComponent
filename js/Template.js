@@ -11,7 +11,10 @@
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        //这里的extend只会在对比里面的属性值然后合并。对于内包含对象的属性的是不会合并的
+        var UsetOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css = $.extend({}, DEFAULTS.css,options.css);
         that.init();
 	}
 	

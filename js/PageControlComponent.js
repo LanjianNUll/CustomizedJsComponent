@@ -6,22 +6,22 @@
 			//0  表示上一页   -1 表示下一页
 				console.log("当前点击页为： "+pageNum);
 			},
-		css:{
-			width: 400,
-			height:60,
-			circleWidth:60,
-			circleHeight:60,
-			radius:30,
-			backgroundColor:"#FEEFFF",
-			boder:"solid",
-			borderColor:"#000000",
-			borderWidth:1,
-			mouseOverColor:"#4876FF",
-			mouseOverFontColor:"#ffffff",
-			fontColor:"#123456",
-			fontSize: 20,
-			gapWidth:20
-		},
+//		css:{
+//			width: 400,
+//			height:60,
+//			circleWidth:60,
+//			circleHeight:60,
+//			radius:30,
+//			backgroundColor:"#FEEFFF",
+//			boder:"solid",
+//			borderColor:"#000000",
+//			borderWidth:1,
+//			mouseOverColor:"#4876FF",
+//			mouseOverFontColor:"#ffffff",
+//			fontColor:"#123456",
+//			fontSize: 20,
+//			gapWidth:20
+//		},
 		PageNum:0,
 		MaxPageNum:5,
 		PrePageContent:"<<",
@@ -36,11 +36,11 @@
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
-        //这里的extend只会在对比里面的属性值然后合并。对于内包含对象的属性的是不会合并的
-        var UsetOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
-        that.options.css = $.extend({}, DEFAULTS.css,options.css);
         that.init();
+        
+        console.log(that.options.css);
+        
 	}
 	
 	PageComponent.DEFAULTS = DEFAULTS;
@@ -151,6 +151,7 @@
     	if(i==0){
     		divNode.attr("pageIndex",0);
     		divNode.text(textContent);
+    		divNode.css({"margin-left":"0px"});
     	}else if(i==-1){
     		divNode.attr("pageIndex",-1);
     		divNode.text(textContent);
@@ -191,7 +192,6 @@
             if(!data) $this.data('xh.pageComponent', (data = new PageComponent(this, options)))
         })
     }
-    
     //构造
     $.fn.pageComponent.Constructor = PageComponent;
 	

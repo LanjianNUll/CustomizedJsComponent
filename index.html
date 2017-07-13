@@ -7,6 +7,7 @@
 	<script src="js/lib/jquery.js"></script>
 	<script src="js/XH_Component.js"></script>
 	<script src="js/PageControlComponent.js"></script>
+	<script src="js/LeftAndRightBtn.js"></script>
 	<script src="js/test.js"></script>
 	
 	<style>
@@ -41,9 +42,47 @@
 			color:#98988a;
 		}
 		
+		.auto_div2{
+		    position: absolute;
+		    left:50px;
+		    top: 250px;
+		    width: 600px;
+		    height: 60px;
+		    background-color: #EEE5DE;
+		}
+		
 		.ptext{
 			color:#123456;
 			font-size:20px;
+		}
+		
+		.common{
+			display: inline-block;
+		    width: 200px;
+		    height: 100px;
+		    vertical-align: middle;
+		    background-color: #48D1CC;
+			border:solid;
+			border-color: #03feef;
+			border-width: 0px;
+		}
+		
+		.imgPos{
+			position: relative;
+			width: 20px;
+			height: 20px;
+			top: 40px;
+			left: 90px;
+		}
+		
+		.left{
+			border-top-left-radius: 5px;
+			border-bottom-left-radius: 5px;
+		}
+		
+		.right{
+			border-top-right-radius: 5px;
+			border-bottom-right-radius: 5px;
 		}		
 		
 	</style>
@@ -52,8 +91,10 @@
     	<input id="inputTest" name="fname" value=""/>
 		<div id="hh" class="auto_div">
 		</div>
-		
 		<div id="ss" class="auto_div1">
+		</div>
+		
+		<div id="dd" class="auto_div2">
 			
 		</div>
 		

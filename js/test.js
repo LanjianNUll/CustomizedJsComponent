@@ -23,6 +23,7 @@ $(document).ready(function(){
 			width: 600,
 			height:60,
 			circleWidth:60,
+			circleHeight:60,
 			radius:30,
 			backgroundColor:"#FEEFFF",
 			boder:"solid",
@@ -69,4 +70,27 @@ $(document).ready(function(){
     };
    
     $("#ss").pageComponent(pageOptions1);
+    
+    var pageOptions22= {
+	   	leftBtnClick:function(parm){
+			console.log("leftBtn click");
+				},
+		rightBtnClick:function(parm){
+			console.log("rightBtn click");
+		},
+		css:{
+			width: 120,
+			height:40,
+			radius:5,
+			backgroundColor:"#48D1CC",
+			boder:"solid",
+			borderColor:"#48D1CC",
+			borderWidth:0,
+			mouseOverColor:"#000000"
+		},
+		leftImagePath:"img/add.png",
+		rightImagePath:"img/trian_left.png"
+	};
+	
+    $("#dd").leftAndRightBtn(pageOptions22);
 });
