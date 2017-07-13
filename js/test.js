@@ -17,10 +17,9 @@ $(document).ready(function(){
     
     var pageOptions= {
 	    pageItemClick:function(pageNum){
-					console.log("自定义函数操作（参数为当前的页数）： "+pageNum);
+					console.log("自定义函数操作（参数为当前的页数，另：0  表示上一页   -1 表示下一页）： "+pageNum);
 				},
 		css:{
-			
 			width: 600,
 			height:60,
 			circleWidth:60,
@@ -36,10 +35,38 @@ $(document).ready(function(){
 			gapWidth:20
 		},
 		PageNum:5,
-		CurrentPageNum:1
+		MaxPageNum:5,
+		CurrentPageNum:1,
+		PrePageContent:"<<",
+		LastPageContent:">>"
+		
     };
     
     $("#hh").pageComponent(pageOptions);
    
-    
+    var pageOptions1= {
+	    pageItemClick:function(pageNum){
+					console.log("自定义函数操作（参数为当前的页数，另：0  表示上一页   -1 表示下一页）： "+pageNum);
+				},
+		css:{
+			width: 600,
+			height:60,
+			circleWidth:120,
+			circleHeight:60,
+			radius:30,
+			backgroundColor:"#FEEFFF",
+			boder:"solid",
+			borderColor:"#000000",
+			borderWidth:1,
+			mouseOverColor:"#4876FF",
+			mouseOverFontColor:"#ffffff",
+			fontColor:"#123456",
+			fontSize: 20,
+			gapWidth:20
+		},
+		PrePageContent:"上一页",
+		LastPageContent:"下一页"
+    };
+   
+    $("#ss").pageComponent(pageOptions1);
 });

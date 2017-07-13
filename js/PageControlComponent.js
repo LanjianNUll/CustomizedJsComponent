@@ -3,12 +3,14 @@
 	var NAME = "PAGECOMPONENT",
 	DEFAULTS = {
 		pageItemClick:function(pageNum){
+			//0  表示上一页   -1 表示下一页
 				console.log("当前点击页为： "+pageNum);
 			},
 		css:{
 			width: 400,
 			height:60,
 			circleWidth:60,
+			circleHeight:60,
 			radius:30,
 			backgroundColor:"#FEEFFF",
 			boder:"solid",
@@ -20,7 +22,10 @@
 			fontSize: 20,
 			gapWidth:20
 		},
-		PageNum:5,
+		PageNum:0,
+		MaxPageNum:5,
+		PrePageContent:"<<",
+		LastPageContent:">>",
 		CurrentPageNum:1,
 		parentId:"pageContainer"
    	};
@@ -48,24 +53,28 @@
             eventSuffix    = '.' + NAME + '.' + that.id;
             
         var cricleNum =  that.options.PageNum;
+//      if(that.options.PageNum>that.options.MaxPageNum){
+//      	cricleNum = that.options.MaxPageNum;
+//      }
         //0  表示上一页   -1 表示下一页
-        var prePageItem = CreateCircle(that,0,"<<");
-        var lastPageItem = CreateCircle(that,-1,">>");
+        var prePageItem = CreateCircle(that,0,that.options.PrePageContent);
+        var lastPageItem = CreateCircle(that,-1,that.options.LastPageContent);
         
         prePageItem.appendTo(that.$);
-        
         for(var i = 1; i < cricleNum+1; i++){
         	var pageItem = CreateCircle(that,i);
         	circleArray.push(pageItem);
         	pageItem.appendTo(that.$);
         }
         lastPageItem.appendTo(that.$);
-        
-        SetCurrentPageNum(that,that.options.CurrentPageNum);
+        if(cricleNum !=0){
+        	SetCurrentPageNum(that,that.options.CurrentPageNum);
+        }
 	}
     
     function CreateCircle(that,i,textContent){
     	 var circleWidth = that.options.css.circleWidth,
+    	 	circleHeight = that.options.css.circleHeight,
          	radius = that.options.css.radius;
          	bgColor = that.options.css.backgroundColor,
          	boder = that.options.css.boder,
@@ -81,8 +90,8 @@
     		"display": "inline-block",
 			"text-align": "center",
 			"width":circleWidth + "px",
-			"height":circleWidth + "px",
-			"line-height": circleWidth + "px",
+			"height":circleHeight + "px",
+			"line-height": circleHeight + "px",
 			"border-radius":radius + "px",
 			"border":boder,
 			"border-color": borderColor,
@@ -110,27 +119,33 @@
 		
 		divNode.click(function(e){
 			var pageIndex = $(e.target).attr("pageIndex");
-			if(pageIndex==0){
-				if(that.options.CurrentPageNum>1){
-					that.options.CurrentPageNum = that.options.CurrentPageNum-1;
+			if(that.options.PageNum != 0){
+				if(pageIndex==0){
+					if(that.options.CurrentPageNum>1){
+						that.options.CurrentPageNum = that.options.CurrentPageNum-1;
+						SetCurrentPageNum(that,that.options.CurrentPageNum);
+						that.options.pageItemClick(that.options.CurrentPageNum)
+					}else{
+						that.options.pageItemClick(1)
+					}
+		    	}else if(pageIndex==-1){
+		    		if(that.options.CurrentPageNum < that.options.PageNum){
+						that.options.CurrentPageNum = that.options.CurrentPageNum+1;
+						SetCurrentPageNum(that,that.options.CurrentPageNum);
+						that.options.pageItemClick(that.options.CurrentPageNum)
+					}else{
+						that.options.pageItemClick(that.options.CurrentPageNum)
+					}
+		    	}else{
+		    		that.options.CurrentPageNum = pageIndex;
 					SetCurrentPageNum(that,that.options.CurrentPageNum);
 					that.options.pageItemClick(that.options.CurrentPageNum)
-				}else{
-					that.options.pageItemClick(1)
-				}
-	    	}else if(pageIndex==-1){
-	    		if(that.options.CurrentPageNum < that.options.PageNum){
-					that.options.CurrentPageNum = that.options.CurrentPageNum+1;
-					SetCurrentPageNum(that,that.options.CurrentPageNum);
-					that.options.pageItemClick(that.options.CurrentPageNum)
-				}else{
-					that.options.pageItemClick(that.options.CurrentPageNum)
-				}
-	    	}else{
-	    		that.options.CurrentPageNum = pageIndex;
-				SetCurrentPageNum(that,that.options.CurrentPageNum);
-				that.options.pageItemClick(that.options.CurrentPageNum)
-	    	}
+		    	}
+			}else{
+				//0  表示上一页   -1 表示下一页
+				that.options.pageItemClick(pageIndex);
+			}
+			
 		});
     	var textstr = textContent || i;
     	if(i==0){
