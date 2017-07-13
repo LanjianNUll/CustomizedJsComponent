@@ -2,6 +2,9 @@
 	
 	var NAME = "PAGECOMPONENT",
 	DEFAULTS = {
+		pageItemClick:function(pageNum){
+				console.log("当前点击页为： "+pageNum);
+			},
 		css:{
 			width: 400,
 			height:60,
@@ -14,7 +17,8 @@
 			mouseOverColor:"#4876FF",
 			mouseOverFontColor:"#ffffff",
 			fontColor:"#123456",
-			fontSize: 20
+			fontSize: 20,
+			gapWidth:20
 		},
 		PageNum:5,
 		CurrentPageNum:1,
@@ -27,7 +31,10 @@
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        //这里的extend只会在对比里面的属性值然后合并。对于内包含对象的属性的是不会合并的
+        var UsetOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css = $.extend({}, DEFAULTS.css,options.css);
         that.init();
 	}
 	
@@ -41,8 +48,9 @@
             eventSuffix    = '.' + NAME + '.' + that.id;
             
         var cricleNum =  that.options.PageNum;
+        //0  表示上一页   -1 表示下一页
         var prePageItem = CreateCircle(that,0,"<<");
-        var lastPageItem = CreateCircle(that,0,">>");
+        var lastPageItem = CreateCircle(that,-1,">>");
         
         prePageItem.appendTo(that.$);
         
@@ -52,6 +60,8 @@
         	pageItem.appendTo(that.$);
         }
         lastPageItem.appendTo(that.$);
+        
+        SetCurrentPageNum(that,that.options.CurrentPageNum);
 	}
     
     function CreateCircle(that,i,textContent){
@@ -64,7 +74,8 @@
         	mouseOverColor = that.options.css.mouseOverColor,
         	fontColor = that.options.css.fontColor,
         	mouseOverFontColor = that.options.css.mouseOverFontColor,
-        	fontSize = that.options.css.fontSize
+        	fontSize = that.options.css.fontSize,
+        	gapWidth = that.options.css.gapWidth;
     	var divNode = $("<div>");
     	divNode.css({
     		"display": "inline-block",
@@ -79,9 +90,9 @@
 			"background-color": bgColor,
 			"cursor":"pointer",
 			"color":fontColor,
-			"font-size":fontSize
+			"font-size":fontSize,
+			"margin-left":gapWidth+"px"
     	});
-    	
     	//鼠标移动到选项上
 		divNode.mouseover(function(e){
 			$(e.target).css({"background-color": mouseOverColor,
@@ -89,35 +100,70 @@
 			});
 		});
 		divNode.mouseout(function(e){
-			$(e.target).css({"background-color":"#ffffff00",
-			"color":fontColor,
-			"border-color": borderColor
-			});
+			if($(e.target).text() != (that.options.CurrentPageNum+"")){
+				$(e.target).css({"background-color":"#ffffff00",
+				"color":fontColor,
+				"border-color": borderColor
+				});
+			}
 		});
-    	
+		
+		divNode.click(function(e){
+			var pageIndex = $(e.target).attr("pageIndex");
+			if(pageIndex==0){
+				if(that.options.CurrentPageNum>1){
+					that.options.CurrentPageNum = that.options.CurrentPageNum-1;
+					SetCurrentPageNum(that,that.options.CurrentPageNum);
+					that.options.pageItemClick(that.options.CurrentPageNum)
+				}else{
+					that.options.pageItemClick(1)
+				}
+	    	}else if(pageIndex==-1){
+	    		if(that.options.CurrentPageNum < that.options.PageNum){
+					that.options.CurrentPageNum = that.options.CurrentPageNum+1;
+					SetCurrentPageNum(that,that.options.CurrentPageNum);
+					that.options.pageItemClick(that.options.CurrentPageNum)
+				}else{
+					that.options.pageItemClick(that.options.CurrentPageNum)
+				}
+	    	}else{
+	    		that.options.CurrentPageNum = pageIndex;
+				SetCurrentPageNum(that,that.options.CurrentPageNum);
+				that.options.pageItemClick(that.options.CurrentPageNum)
+	    	}
+		});
     	var textstr = textContent || i;
     	if(i==0){
+    		divNode.attr("pageIndex",0);
+    		divNode.text(textContent);
+    	}else if(i==-1){
+    		divNode.attr("pageIndex",-1);
     		divNode.text(textContent);
     	}else{
     		divNode.text(i);
+    		divNode.attr("pageIndex",i);
     	}
     	return divNode;
     }
     
-    function SetCurrentPageNum(currentIndex)
+    function SetCurrentPageNum(that,currentIndex)
     {
+    	var bgColor = that.options.css.backgroundColor,
+         	borderColor = that.options.css.borderColor,
+        	mouseOverColor = that.options.css.mouseOverColor,
+        	fontColor = that.options.css.fontColor,
+        	mouseOverFontColor = that.options.css.mouseOverFontColor;
+    	
     	for(var i = 0;i<circleArray.length;i++){
     		circleArray[i].css({
-    			
-    			
-    			
+    		"border-color": borderColor,
+			"background-color": bgColor,
+			"color":fontColor
     		});
     	}
-    	
     	circleArray[currentIndex-1].css({
-    		
-    		
-    		
+			"background-color": mouseOverColor,
+			"color":mouseOverFontColor
     	});
     }
     

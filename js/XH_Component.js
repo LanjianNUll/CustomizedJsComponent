@@ -26,7 +26,9 @@
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        var UsetOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css = $.extend({}, DEFAULTS.css,options.css);
         that.init();
 	}
 	

@@ -15,26 +15,29 @@ $(document).ready(function(){
     $("#inputTest").autoInput(options);
     $("#inputTest1").autoInput(options);
     
-    
-    
     var pageOptions= {
-     
+	    pageItemClick:function(pageNum){
+					console.log("自定义函数操作（参数为当前的页数）： "+pageNum);
+				},
 		css:{
-			width: 400,
+			
+			width: 600,
 			height:60,
 			circleWidth:60,
 			radius:30,
-			backgroundColor:null,
+			backgroundColor:"#FEEFFF",
 			boder:"solid",
 			borderColor:"#000000",
 			borderWidth:1,
-			mouseOverColor:"#148586",
+			mouseOverColor:"#4876FF",
 			mouseOverFontColor:"#ffffff",
-			fontColor:"#148586",
-			fontSize: 40
+			fontColor:"#123456",
+			fontSize: 20,
+			gapWidth:20
 		},
+		PageNum:5,
+		CurrentPageNum:1
     };
-    
     
     $("#hh").pageComponent(pageOptions);
    
