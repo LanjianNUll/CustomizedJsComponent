@@ -1,11 +1,5 @@
 $(document).ready(function(){
 	var options = {
-	   AutoSwitch:true,
-       Input:null,
-       Propertychange: function(){
-       		console.log("自定义输入改变函数Propertychange");
-       },
-       MaxLine:15,
       css:{
     		width:null,								//
     		height:null,							//线框的宽度  0 则表示没有
@@ -20,7 +14,29 @@ $(document).ready(function(){
     
     $("#inputTest").autoInput(options);
     $("#inputTest1").autoInput(options);
-  //  $("#hh").pageComponent(options);
+    
+    
+    
+    var pageOptions= {
+     
+		css:{
+			width: 400,
+			height:60,
+			circleWidth:60,
+			radius:30,
+			backgroundColor:null,
+			boder:"solid",
+			borderColor:"#000000",
+			borderWidth:1,
+			mouseOverColor:"#148586",
+			mouseOverFontColor:"#ffffff",
+			fontColor:"#148586",
+			fontSize: 40
+		},
+    };
+    
+    
+    $("#hh").pageComponent(pageOptions);
    
     
 });

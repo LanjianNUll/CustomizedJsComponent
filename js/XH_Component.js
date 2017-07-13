@@ -56,7 +56,6 @@
     	var left = that.$.offset().left
 		var top = that.$.offset().top+that.$.outerHeight(true);
 		var posi = that.$.css('position');
-		console.log(left+"--"+top+"---"+posi);
     	parent.css({"background-color":"#FFFFFF",
 					"position":"absolute",
 			  		"left": left+"px",
@@ -114,7 +113,8 @@
 	    							 "border-top":   borderTopW + "px solid",
 	    							 "bordercolor":borderColor,
 	    							 "height":itemH + "px",
-	    							 "width":itemW + "px"
+	    							 "width":itemW + "px",
+	    							 "line-height": itemH +"px"    //居中
 	    							});
 	    			//鼠标移动到选项上
 	    			newDivNode.mouseover(function(e){
