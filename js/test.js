@@ -88,9 +88,26 @@ $(document).ready(function(){
 			borderWidth:0,
 			mouseOverColor:"#000000"
 		},
-		leftImagePath:"img/add.png",
-		rightImagePath:"img/trian_left.png"
+		leftImagePath:"img/trian_left.png",
+		rightImagePath:"img/trian_right.png"
 	};
 	
     $("#dd").leftAndRightBtn(pageOptions22);
+	$("#ff").leftAndRightBtn(pageOptions22);
+	 
+	 
+	 var options = {
+		sreachBtnClick:function(str){
+			console.log("点击了搜索按钮,搜索内容为"+str);
+		},
+		itemBtnClick:function(i,content){
+			console.log("点击了"+i+content);
+		},
+		inputChange:function(str){
+			console.log("输入变化"+str);
+		},
+		dataArray:["民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台"],
+    };
+	 
+	$("#rr").searchInput(options);
 });

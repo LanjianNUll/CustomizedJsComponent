@@ -6,22 +6,22 @@
 			//0  表示上一页   -1 表示下一页
 				console.log("当前点击页为： "+pageNum);
 			},
-//		css:{
-//			width: 400,
-//			height:60,
-//			circleWidth:60,
-//			circleHeight:60,
-//			radius:30,
-//			backgroundColor:"#FEEFFF",
-//			boder:"solid",
-//			borderColor:"#000000",
-//			borderWidth:1,
-//			mouseOverColor:"#4876FF",
-//			mouseOverFontColor:"#ffffff",
-//			fontColor:"#123456",
-//			fontSize: 20,
-//			gapWidth:20
-//		},
+		css:{
+			width: 400,
+			height:60,
+			circleWidth:60,
+			circleHeight:60,
+			radius:30,
+			backgroundColor:"#FEEFFF",
+			boder:"solid",
+			borderColor:"#000000",
+			borderWidth:1,
+			mouseOverColor:"#4876FF",
+			mouseOverFontColor:"#ffffff",
+			fontColor:"#123456",
+			fontSize: 20,
+			gapWidth:20
+		},
 		PageNum:0,
 		MaxPageNum:5,
 		PrePageContent:"<<",

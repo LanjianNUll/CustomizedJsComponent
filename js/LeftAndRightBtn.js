@@ -84,8 +84,8 @@
 			"border-width": borderWidth + "px",
 			"background-color": bgColor,
 			"cursor":"pointer",
-			"border-top-left-radius": leftRadius,
 			"border-bottom-left-radius":leftRadius,
+			"border-top-left-radius": leftRadius,
 			"border-top-right-radius":rightRadius,
 			"border-bottom-right-radius":rightRadius
     	});	
