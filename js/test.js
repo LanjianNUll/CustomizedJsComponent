@@ -13,27 +13,14 @@ $(document).ready(function(){
     };
     
     $("#inputTest").autoInput(options);
-    $("#inputTest1").autoInput(options);
     
     var pageOptions= {
 	    pageItemClick:function(pageNum){
 					console.log("自定义函数操作（参数为当前的页数，另：0  表示上一页   -1 表示下一页）： "+pageNum);
 				},
 		css:{
-			width: 600,
-			height:60,
 			circleWidth:60,
-			circleHeight:60,
-			radius:30,
-			backgroundColor:"#FEEFFF",
-			boder:"solid",
-			borderColor:"#000000",
-			borderWidth:1,
-			mouseOverColor:"#4876FF",
-			mouseOverFontColor:"#ffffff",
-			fontColor:"#123456",
-			fontSize: 20,
-			gapWidth:20
+			circleHeight:60
 		},
 		PageNum:5,
 		MaxPageNum:5,
@@ -50,20 +37,9 @@ $(document).ready(function(){
 					console.log("自定义函数操作（参数为当前的页数，另：0  表示上一页   -1 表示下一页）： "+pageNum);
 				},
 		css:{
-			width: 600,
-			height:60,
 			circleWidth:120,
 			circleHeight:60,
 			radius:30,
-			backgroundColor:"#FEEFFF",
-			boder:"solid",
-			borderColor:"#000000",
-			borderWidth:1,
-			mouseOverColor:"#4876FF",
-			mouseOverFontColor:"#ffffff",
-			fontColor:"#123456",
-			fontSize: 20,
-			gapWidth:20
 		},
 		PrePageContent:"上一页",
 		LastPageContent:"下一页"
@@ -82,11 +58,9 @@ $(document).ready(function(){
 			width: 120,
 			height:40,
 			radius:5,
-			backgroundColor:"#48D1CC",
 			boder:"solid",
-			borderColor:"#48D1CC",
+			
 			borderWidth:0,
-			mouseOverColor:"#000000"
 		},
 		leftImagePath:"img/trian_left.png",
 		rightImagePath:"img/trian_right.png"
@@ -94,7 +68,7 @@ $(document).ready(function(){
 	
     $("#dd").leftAndRightBtn(pageOptions22);
 	$("#ff").leftAndRightBtn(pageOptions22);
-	 
+	
 	 
 	 var options = {
 		sreachBtnClick:function(str){
@@ -103,11 +77,24 @@ $(document).ready(function(){
 		itemBtnClick:function(i,content){
 			console.log("点击了"+i+content);
 		},
-		inputChange:function(str){
-			console.log("输入变化"+str);
-		},
-		dataArray:["民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台"],
+		inputChange:refreshStr,
+		//默认显示的，若无 则是一个空数组
+		dataArray:["默认显示的","若无 则是一个","关键字个数8"],
     };
+
+
+	//用户定义  参数返回的是输入框的value
+	//test
+	var arr = [];
+	function refreshStr(str){
+	//用户自己定义  获取数据的方式
+	//		....
+	//		....
+	//		...
+		if(str != "")
+			arr.push(str);
+		$("#rr").refrshInputComplete(arr);
+	}
 	 
 	$("#rr").searchInput(options);
 });

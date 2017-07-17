@@ -8,10 +8,7 @@
 		itemBtnClick:function(i,content){
 			console.log("点击了"+i+content);
 		},
-		inputChange:function(str){
-			console.log("输入变化"+str);
-		},
-		dataArray:["民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台","民警事务平台"],
+		dataArray:[],
 		inputTip:"输入您想要查找的应用",
 		sreachbtnImg:"img/searchInput.png",
 		css:{
@@ -22,7 +19,7 @@
 			inputPaddingRight:20,
 			inputFontSize:20,
 			inputFontColor:"#ffffff",
-			InputBgColor:"#000000",
+			InputBgColor:"rgba(0, 0, 0, 0.5)",
 			imgDivWidth:null,							//这里这个默认设为input的bgColor,用户需要时自定义宽度
 			imgWidth:20,
 			imgDivBgColor:null,							//这里这个默认设为input的bgColor,用户需要时自定义按钮区域的bgColor
@@ -48,8 +45,9 @@
 	var SreachInput = function(element,options){
 		that     = this;
         that.$       = $(element);
-        that.id      = idIncrementer++;
+        var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
         that.init();
 	}
 	
@@ -58,7 +56,6 @@
    
     //初始化
     SreachInput.prototype.init = function(){
-    	console.log("init");
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
@@ -67,8 +64,12 @@
 		var dataArray = that.options.dataArray;
        	var lineNum = (dataArray.length%2 == 0) ? dataArray.length/2 : (dataArray.length+1)/2;
         var groupHeight = (css.itemMarginTop+css.groupTop+css.itemHeight)*lineNum;
-        css.groupHeight = groupHeight;
-        
+        if(dataArray.length == 0){
+        	css.groupHeight = 0;
+        }
+    	else{
+    		 css.groupHeight = groupHeight;
+    	}
         var inputFrame = CreatInputFrame();
         var imgBtn = CreatImgBtn();
         inputFrame.appendTo(that.$);
@@ -78,24 +79,34 @@
        	itemGroup.appendTo(that.$);
        	inputFrame.on("input", OnInput);
        	
+       	for(var i = 0; i < dataArray.length; i++){
+       		var item = CreatItem(i,dataArray[i]);
+       		item.appendTo(itemGroup);
+       	}
+   		that.itemGroup = itemGroup;
        	//输入框变化
 	    function OnInput(e){
-	    	var item;
-	    	itemGroup.empty();
-	    	
-	    	var arry = ["模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的"];
-	       	for(var i = 0; i < arry.length; i++){
-	       		item = CreatItem(i,dataArray[i]);
-	       		item.appendTo(itemGroup);
-	       	}
 	     	that.options.inputChange($(e.target).val());
 	    }
 	}
     
-    //输入框变化
-    function OnInput(e){
-     	that.options.inputChange($(e.target).val());
-     	var arry = ["模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的","模拟ajax返回的"];
+    //刷新
+    SreachInput.prototype.refrshInputComplete = function(arry){
+    	var item;
+    	var itemGroup = that.itemGroup.empty();
+       	for(var i = 0; i < arry.length; i++){
+       		item = CreatItem(i,arry[i]);
+       		item.appendTo(itemGroup);
+       	}
+       	//根据内容改变group的大小
+       	css = that.options.css;
+		var dataArray = arry;
+       	var lineNum = (dataArray.length%2 == 0) ? dataArray.length/2 : (dataArray.length+1)/2;
+        var groupHeight = (css.itemMarginTop+css.groupTop+css.itemHeight)*lineNum;
+       	css.groupHeight = groupHeight;
+       	itemGroup.css({
+			"height":groupHeight + "px",
+    	});
     }
     
     function CreatInputFrame()
@@ -119,10 +130,8 @@
 			"font-size": fontSize + "px",
 			"color": fontColor,
 			"font-weight":"bold",
-			"background-color": bgColor,
-			"opacity": opacity
+			"background-color": bgColor
     	});
-    	
     	return input;
     }
     
@@ -143,8 +152,7 @@
     			"top": 2 + "px",
     			"width": width + "px",
     			"height": height + "px",
-    			"background-color": bgColor,
-    			"opacity": opacity
+    			"background-color": "",
     		});
     	var imgBtn = $("<img>").attr({"src":that.options.sreachbtnImg});
 	    	imgBtn.css({
@@ -178,8 +186,7 @@
 			"height":height + "px",
 			"border-radius":boderRadius + "px",
 			"margin-top": marginTop+ "px",
-			"background-color": bgColor,
-			"opacity": opacity
+			"background-color":bgColor
     	});
     	return itemGroup;
     }
@@ -187,7 +194,7 @@
     function CreatItem(index,content){
      	var groupWidth =  that.options.css.inputWidth +that.options.css.inputPaddingLeft+ that.options.css.inputPaddingRight;
     	var height = that.options.css.itemHeight,
-    		bgColor = that.options.css.itemBgColor,
+    		bgColor = that.options.css.InputBgColor,
     		marginTop = that.options.css.itemMarginTop,
     		marginLeft = that.options.css.itemMarginLeft,
     		fontSize = that.options.css.itemFontSize,
@@ -210,7 +217,8 @@
 			"font-size": fontSize + "px",
 			"color": fontColor,
 			"cursor":"pointer",
-			"border-radius":boderRadius + "px"
+			"border-radius":boderRadius + "px",
+			"background-color":that.options.css.InputBgColor,
     	});
     	//按钮事件
     	item.mouseover(function(e){
@@ -218,8 +226,9 @@
 			});
 		});
 		item.mouseout(function(e){
-			$(e.target).css({"background-color":that.options.css.InputBgColor
+			$(e.target).css({"background-color":bgColor
 			});
+			
 		});
     	item.click(function(e){
     		var flag = $(e.target).attr("index");
@@ -237,6 +246,10 @@
             var options = typeof option == 'object' && option
             if(!data) $this.data('xh.SreachInput', (data = new SreachInput(this, options)))
         })
+    }
+     
+    $.fn.refrshInputComplete = function(arr){
+    	that.refrshInputComplete(arr);
     }
     //构造
     $.fn.searchInput.Constructor = SreachInput;

@@ -210,6 +210,13 @@
     	$root.on(InputEvent, OnInput);
     	$root.on(PropertychangeEvent, OnPropertychange);
     	$root.on(ChangeEvent, OnChange);
+    	
+//  	//失去焦点
+//  	$root.blur(function(){
+//			//把之前的销毁
+//			parent.empty();
+//  	});
+    	
     }
     
     //入口方法

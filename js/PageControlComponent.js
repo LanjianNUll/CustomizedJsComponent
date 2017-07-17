@@ -7,18 +7,18 @@
 				console.log("当前点击页为： "+pageNum);
 			},
 		css:{
-			width: 400,
+			width: 600,
 			height:60,
 			circleWidth:60,
 			circleHeight:60,
 			radius:30,
-			backgroundColor:"#FEEFFF",
+			backgroundColor:"",
 			boder:"solid",
 			borderColor:"#000000",
 			borderWidth:1,
-			mouseOverColor:"#4876FF",
-			mouseOverFontColor:"#ffffff",
-			fontColor:"#123456",
+			mouseOverColor:"#03feef",
+			mouseOverFontColor:"#03feef",
+			fontColor:"#FFFACD",
 			fontSize: 20,
 			gapWidth:20
 		},
@@ -29,18 +29,20 @@
 		CurrentPageNum:1,
 		parentId:"pageContainer"
    	};
-   
+   	
+ 
 	var idIncrementer = 0;
 	var circleArray = [];
+	var PAGECOMPONENTObj = [];
+	
 	var PageComponent = function(element,options){
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
         that.init();
-        
-        console.log(that.options.css);
-        
 	}
 	
 	PageComponent.DEFAULTS = DEFAULTS;
@@ -102,18 +104,21 @@
 			"font-size":fontSize,
 			"margin-left":gapWidth+"px"
     	});
+    	
     	//鼠标移动到选项上
 		divNode.mouseover(function(e){
-			$(e.target).css({"background-color": mouseOverColor,
-				"color":mouseOverFontColor
+			$(e.target).css({"background-color": bgColor,
+				"color":mouseOverFontColor,
+				"border-color": mouseOverColor
 			});
 		});
+		
 		divNode.mouseout(function(e){
 			if($(e.target).text() != (that.options.CurrentPageNum+"")){
-				$(e.target).css({"background-color":"#ffffff00",
+				$(e.target).css({"background-color":bgColor,
 				"color":fontColor,
 				"border-color": borderColor
-				});
+			});
 			}
 		});
 		
@@ -173,13 +178,15 @@
     	for(var i = 0;i<circleArray.length;i++){
     		circleArray[i].css({
     		"border-color": borderColor,
-			"background-color": bgColor,
+			"background-color": "",
 			"color":fontColor
     		});
     	}
+//  	console.log("当前的页数："+currentIndex)
     	circleArray[currentIndex-1].css({
-			"background-color": mouseOverColor,
-			"color":mouseOverFontColor
+			"background-color": bgColor,
+			"color":mouseOverFontColor,
+			"border-color": mouseOverColor
     	});
     }
     
@@ -194,5 +201,4 @@
     }
     //构造
     $.fn.pageComponent.Constructor = PageComponent;
-	
 }(jQuery, document))
