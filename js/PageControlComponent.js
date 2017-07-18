@@ -1,5 +1,5 @@
 (function($,doucument){
-	
+	'use strict';
 	var NAME = "PAGECOMPONENT",
 	DEFAULTS = {
 		pageItemClick:function(pageNum){
@@ -12,11 +12,12 @@
 			circleWidth:60,
 			circleHeight:60,
 			radius:30,
-			backgroundColor:"",
+			backgroundColor:"rgba(0,0,0,0)",
 			boder:"solid",
 			borderColor:"#000000",
 			borderWidth:1,
-			mouseOverColor:"#03feef",
+			mouseOverColor:"rgba(0,0,0,0)",
+			mouseOverBoderColor:"#03feef",
 			mouseOverFontColor:"#03feef",
 			fontColor:"#FFFACD",
 			fontSize: 20,
@@ -30,10 +31,8 @@
 		parentId:"pageContainer"
    	};
    	
- 
 	var idIncrementer = 0;
 	var circleArray = [];
-	var PAGECOMPONENTObj = [];
 	
 	var PageComponent = function(element,options){
 		var that     = this;
@@ -53,7 +52,7 @@
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
-            
+        console.log(that);   
         var cricleNum =  that.options.PageNum;
 //      if(that.options.PageNum>that.options.MaxPageNum){
 //      	cricleNum = that.options.MaxPageNum;
@@ -77,11 +76,12 @@
     function CreateCircle(that,i,textContent){
     	 var circleWidth = that.options.css.circleWidth,
     	 	circleHeight = that.options.css.circleHeight,
-         	radius = that.options.css.radius;
+         	radius = that.options.css.radius,
          	bgColor = that.options.css.backgroundColor,
          	boder = that.options.css.boder,
          	borderColor = that.options.css.borderColor,
         	borderWidth = that.options.css.borderWidth,
+        	mouseOverBoderColor = that.options.css.mouseOverBoderColor,
         	mouseOverColor = that.options.css.mouseOverColor,
         	fontColor = that.options.css.fontColor,
         	mouseOverFontColor = that.options.css.mouseOverFontColor,
@@ -107,9 +107,9 @@
     	
     	//鼠标移动到选项上
 		divNode.mouseover(function(e){
-			$(e.target).css({"background-color": bgColor,
+			$(e.target).css({"background-color": mouseOverColor,
 				"color":mouseOverFontColor,
-				"border-color": mouseOverColor
+				"border-color": mouseOverBoderColor
 			});
 		});
 		
@@ -173,8 +173,8 @@
          	borderColor = that.options.css.borderColor,
         	mouseOverColor = that.options.css.mouseOverColor,
         	fontColor = that.options.css.fontColor,
-        	mouseOverFontColor = that.options.css.mouseOverFontColor;
-    	
+        	mouseOverFontColor = that.options.css.mouseOverFontColor,
+    		mouseOverBoderColor = that.options.css.mouseOverBoderColor;
     	for(var i = 0;i<circleArray.length;i++){
     		circleArray[i].css({
     		"border-color": borderColor,
@@ -186,7 +186,7 @@
     	circleArray[currentIndex-1].css({
 			"background-color": bgColor,
 			"color":mouseOverFontColor,
-			"border-color": mouseOverColor
+			"border-color": mouseOverBoderColor
     	});
     }
     

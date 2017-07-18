@@ -1,5 +1,5 @@
 (function($,doucument){
-	
+	'use strict';
 	var NAME = "LeftRightBtn",
 	DEFAULTS = {
 		leftBtnClick:function(parm){
@@ -31,6 +31,8 @@
         var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
         that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
+         console.log(that); 
+        
         that.init();
 	}
 	
@@ -52,13 +54,12 @@
             rightImg.appendTo(rightBtn);
             leftBtn.appendTo(that.$);
             rightBtn.appendTo(that.$);
-            
 	}
     
     function CreateBtnNode(btnFlag,that){
     	var btnWidth = that.options.css.width,
     	 	btnHeight = that.options.css.height,
-         	radius = that.options.css.radius;
+         	radius = that.options.css.radius,
          	bgColor = that.options.css.backgroundColor,
          	boder = that.options.css.boder,
          	borderColor = that.options.css.borderColor,
@@ -111,7 +112,6 @@
 	    		that.options.rightBtnClick(btnFlag);
 	    	}
     	});
-    	
     	return btn;
     }
     
@@ -133,8 +133,6 @@
 			"top":top,
 			"left":left
     	});	
-    	console.log(img)
-    	
     	//按钮事件
     	img.mouseover(function(e){
 			$(e.target).css({"background-color": mouseOverColor,
@@ -149,7 +147,6 @@
 			$(e.target).parent().css({"background-color": bgColor,
 			});
 		});
-    	console.log(bgColor);
     	return img;
     }
     

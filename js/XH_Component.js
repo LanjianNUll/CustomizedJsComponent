@@ -1,6 +1,6 @@
 
 (function($, document){
-	
+	'use strict';
 	var NAME = "AUTOCOMPLETE",
 	DEFAULTS = {
     	AutoSwitch:true,							//开关
@@ -38,7 +38,7 @@
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id,
-            InputEvent = "input"+eventSuffix
+            InputEvent = "input"+eventSuffix,
             PropertychangeEvent = "propertychange"+eventSuffix,
             ChangeEvent   = "change"+eventSuffix;
        if(that.options.AutoSwitch){

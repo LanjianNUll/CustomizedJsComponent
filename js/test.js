@@ -69,7 +69,6 @@ $(document).ready(function(){
     $("#dd").leftAndRightBtn(pageOptions22);
 	$("#ff").leftAndRightBtn(pageOptions22);
 	
-	 
 	 var options = {
 		sreachBtnClick:function(str){
 			console.log("点击了搜索按钮,搜索内容为"+str);
@@ -91,6 +90,7 @@ $(document).ready(function(){
 	//		....
 	//		....
 	//		...
+	
 		if(str != "")
 			arr.push(str);
 		$("#rr").refrshInputComplete(arr);

@@ -1,5 +1,5 @@
 (function($,doucument){
-	
+	'use strict';
 	var NAME = "SreachInput",
 	DEFAULTS = {
 		sreachBtnClick:function(str){
