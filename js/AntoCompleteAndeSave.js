@@ -1,4 +1,4 @@
-
+//记住输入的账号并将其保存在本地组件
 (function($, document){
 	'use strict';
 	var NAME = "AUTOCOMPLETE",
@@ -19,7 +19,7 @@
     		mouseOverColor:"#EEB422",				//鼠标进入的颜色
     		mouseOutColor:"#EEE5DE"
     	}
-    };
+   };
    
 	var idIncrementer = 0;
 	var AutoComplete = function(element,options){
@@ -41,8 +41,9 @@
             InputEvent = "input"+eventSuffix,
             PropertychangeEvent = "propertychange"+eventSuffix,
             ChangeEvent   = "change"+eventSuffix;
-       if(that.options.AutoSwitch){
+       if(!that.options.AutoSwitch){
        		//开启提示账号
+       		return;
        }
     	//保存初始化
     	that.store	 = new Store();

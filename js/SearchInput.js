@@ -1,3 +1,4 @@
+//搜索框组件
 (function($,doucument){
 	'use strict';
 	var NAME = "SreachInput",

@@ -1,3 +1,6 @@
+//分页组件    
+//第一种形式：中间有页码的   如   <<  1  2  3  4  >>
+//第二种形式：只有上页下页的   如  <<    >>
 (function($,doucument){
 	'use strict';
 	var NAME = "PAGECOMPONENT",
@@ -52,7 +55,6 @@
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
-        console.log(that);   
         var cricleNum =  that.options.PageNum;
 //      if(that.options.PageNum>that.options.MaxPageNum){
 //      	cricleNum = that.options.MaxPageNum;

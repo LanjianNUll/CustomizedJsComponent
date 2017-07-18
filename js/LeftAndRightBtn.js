@@ -31,8 +31,6 @@
         var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
         that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
-         console.log(that); 
-        
         that.init();
 	}
 	
