@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script src="lib/jquery.js"></script>
+	<script src="ToolTip.js"></script>
+	<script src="testToolTipDemo.js"></script>
+	<style>
+		.div{
+			position: absolute;
+			top: 1;
+			left: 200px;
+			width: 10px;
+			height: 20px;
+			background-color: rgba(0,0,0,0.2);
+			border-bottom-left-radius: 5px;
+			border-bottom-right-radius: 5px;
+			color: white;
+		}
+		
+		.divson{
+			position: absolute;
+			top:-40px;
+			left: 0;
+			width: 300px;
+			height: 40px;	
+			background-color: rgba(0,0,0,0.5);
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+			color: white;
+			line-height: 40px;
+		}
+		
+		.arrowUp{
+			position: absolute;
+			left: 135px;
+			top: -30px;
+			width: 0;
+		    height: 0;
+		    border-right:30px solid transparent;
+		    border-bottom: 30px solid  rgba(0,0,0,0.5);
+		    border-left: 30px solid transparent;
+		}
+		
+		.arrowDown{
+			position: absolute;
+			left: 135px;
+			top: 190px;
+			width: 0;
+		    height: 0;
+		    border-top: 30px solid rgba(0,0,0,0.5);
+    		border-right: 30px solid transparent;
+    		border-left: 30px solid transparent;
+			
+		}
+		
+		.arrowLeft{
+			display: ;
+			position: absolute;
+			left: -30px;
+			top: 70px;
+			width: 0;
+		    height: 0;
+		    border-top: 30px solid transparent;
+		    border-right: 30px solid rgba(0,0,0,0.5);
+		    border-bottom: 30px solid transparent;
+			
+		}
+		
+		.arrowRight{
+			position: absolute;
+			left: 300px;
+			top: 70px;
+			width: 0;
+		    height: 0;
+		    border-top: 30px solid transparent;
+		    border-bottom: 30px solid transparent;
+		    border-left: 30px solid rgba(0,0,0,0.5);;
+			
+		}
+		
+		#ee{
+			position: absolute;
+			top: 40%;
+			left: 40%;
+			width: 10px;
+			height: 60px;	
+			background-color: rgba(0,0,0,1);
+		}
+		
+		body{
+			background-image: url(../img/bg.jpg);
+		}
+	</style>
+	
+	<body>
+		<div id="ee" ></div>
+		
+		
+		
+		<!--<div class="div">sadasdas
+			<div class="divson">adas
+			<div class="arrowUp"></div>
+			<div class="arrowDown"></div>
+			<div class="arrowLeft"></div>
+			<div class="arrowRight"></div>
+			</div>
+			
+		</div>-->
+	</body>
+</html>
