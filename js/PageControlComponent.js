@@ -27,7 +27,7 @@
 			gapWidth:20
 		},
 		PageNum:0,
-		MaxPageNum:5,
+		MaxPageNum:99,
 		PrePageContent:"<<",
 		LastPageContent:">>",
 		CurrentPageNum:1,
@@ -56,9 +56,9 @@
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
         var cricleNum =  that.options.PageNum;
-//      if(that.options.PageNum>that.options.MaxPageNum){
-//      	cricleNum = that.options.MaxPageNum;
-//      }
+        if(that.options.PageNum>that.options.MaxPageNum){
+        	cricleNum = that.options.MaxPageNum;
+        }
         //0  表示上一页   -1 表示下一页
         var prePageItem = CreateCircle(that,0,that.options.PrePageContent);
         var lastPageItem = CreateCircle(that,-1,that.options.LastPageContent);
@@ -125,9 +125,11 @@
 		});
 		
 		divNode.click(function(e){
-			var pageIndex = $(e.target).attr("pageIndex");
+			var pageIndex = parseInt($(e.target).attr("pageIndex"));
+			var maxPageNum = that.options.MaxPageNum;
 			if(that.options.PageNum != 0){
 				if(pageIndex==0){
+					//点击的上一页操作
 					if(that.options.CurrentPageNum>1){
 						that.options.CurrentPageNum = that.options.CurrentPageNum-1;
 						SetCurrentPageNum(that,that.options.CurrentPageNum);
@@ -136,6 +138,7 @@
 						that.options.pageItemClick(1)
 					}
 		    	}else if(pageIndex==-1){
+		    		//点击的下一页操作
 		    		if(that.options.CurrentPageNum < that.options.PageNum){
 						that.options.CurrentPageNum = that.options.CurrentPageNum+1;
 						SetCurrentPageNum(that,that.options.CurrentPageNum);
@@ -177,14 +180,16 @@
         	fontColor = that.options.css.fontColor,
         	mouseOverFontColor = that.options.css.mouseOverFontColor,
     		mouseOverBoderColor = that.options.css.mouseOverBoderColor;
+    		
     	for(var i = 0;i<circleArray.length;i++){
     		circleArray[i].css({
     		"border-color": borderColor,
-			"background-color": "",
+			"background-color": bgColor,
 			"color":fontColor
     		});
     	}
-//  	console.log("当前的页数："+currentIndex)
+    	
+  		console.log("当前的页数："+currentIndex);
     	circleArray[currentIndex-1].css({
 			"background-color": bgColor,
 			"color":mouseOverFontColor,

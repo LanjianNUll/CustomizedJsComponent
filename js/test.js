@@ -25,7 +25,6 @@ $(document).ready(function(){
 			circleHeight:60
 		},
 		PageNum:5,
-		MaxPageNum:5,
 		CurrentPageNum:1,
 		PrePageContent:"<<",
 		LastPageContent:">>"
@@ -62,7 +61,6 @@ $(document).ready(function(){
 			height:40,
 			radius:5,
 			boder:"solid",
-			
 			borderWidth:0,
 		},
 		leftImagePath:"img/trian_left.png",
@@ -99,6 +97,5 @@ $(document).ready(function(){
 			arr.push(str);
 		$("#rr").refrshInputComplete(arr);
 	}
-	 
 	$("#rr").searchInput(options);
 });

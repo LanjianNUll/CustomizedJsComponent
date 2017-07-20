@@ -100,7 +100,7 @@
        		item.appendTo(itemGroup);
        	}
        	//根据内容改变group的大小
-       	css = that.options.css;
+        var	css = that.options.css;
 		var dataArray = arry;
        	var lineNum = (dataArray.length%2 == 0) ? dataArray.length/2 : (dataArray.length+1)/2;
         var groupHeight = (css.itemMarginTop+css.groupTop+css.itemHeight)*lineNum;
