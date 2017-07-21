@@ -17,6 +17,7 @@
 			arrowBgColor:"rgba(0,0,0,0.5)",
 			boderRadius:5,
 		},
+		showTitle:false,
 		title:"这里是标题",
 		content:"这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容",
     };
@@ -74,7 +75,7 @@
 				contentDiv.appendTo($root);
 				
 			});
-			//鼠标离开
+			//鼠标离开（这里  对于鼠标移动到子物体及提示的文字上也不消失）
 			$root.mouseout(function(e){
 				//鼠标离开不显示
 				contentDiv.css({
@@ -108,7 +109,11 @@
     	else if(that.options.showDirection == "left"){
     		arrowDiv = CreateToolTipArrowRightDiv(that);
     	}
-    	
+    	if(!that.options.showTitle){
+    		that.options.titleWidth = 0;
+    		that.options.titleHeight = 0;
+    		that.options.title = "";
+		}
     	titleDiv.appendTo(contentDiv);
     	arrowDiv.appendTo(contentDiv);
     	return contentDiv;
