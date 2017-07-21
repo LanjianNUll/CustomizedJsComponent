@@ -6,7 +6,7 @@
 		showDirection:"right",
 		css:{
 			contentWidth:200,
-			contentHeight:60,
+			contentHeight:100,
 			titleWidth: 200,
 			titleHeight: 40,
 			arrowWidth:30,
@@ -14,12 +14,12 @@
 			titleFontColor:"rgba(256,256,256,1)",
 			contentFontColor:"rgba(256,256,256,1)",
 			contentBgColor:"rgba(0,0,0,0.5)",
-			arrowBgColor:"rgba(0,0,0,0.5)",
+			arrowBgColor:"rgba(0,0,0,0.8)",
 			boderRadius:5,
 		},
 		showTitle:false,
-		title:"这里是标题",
-		content:"这里是内容这里是内容这里是内容这里是内容这里是内容这里是内容",
+		title:"这里是默认标题",
+		content:"这里是默认内容这里是默认内容这里是默认内容这里是默认内容这里是内容这里是内容",
     };
 	
 	var idIncrementer = 0;
@@ -42,38 +42,11 @@
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
             
-            var contentDiv = CreateToolTipDiv(that);
-			console.log(that);
+            var contentDiv;
            //鼠标移动在上面
            	$root.mouseover(function(e){
-           		
-           		//这里注意的是 tooltip的高度是conetentdiv加上arrowdiv的高度，而标题是contentdiv的子元素
-				var toolTipDivW = that.options.css.contentWidth+that.options.css.arrowWidth;
-            	var toolTipDivH = that.options.css.contentHeight+that.options.css.arrowWidth;
-            	var targetWidth = $root.outerWidth();
-            	var targetHeight =$root.outerHeight();
-            	var positiontop;
-            	var positionLeft;
-            	if(that.options.showDirection == "top"){
-		    		positiontop = -toolTipDivH;
-				 	positionLeft = targetWidth/2-toolTipDivW/2;
-		    	}
-		    	else if(that.options.showDirection == "bottom"){
-		    		positiontop = targetHeight+that.options.css.arrowWidth+that.options.css.titleHeight;
-				 	positionLeft = targetWidth/2-toolTipDivW/2;
-		    	}
-		    	else if(that.options.showDirection == "left"){
-		    		positiontop = toolTipDivH/2;
-		    		positionLeft = -toolTipDivW;
-		    	}
-		    	else if(that.options.showDirection == "right"){
-		    		positiontop = toolTipDivH/2;
-		    		positionLeft = targetWidth+that.options.css.arrowWidth;
-    			}
-				
-				ChangeDivPositioon(contentDiv,positionLeft,positiontop);
-				contentDiv.appendTo($root);
-				
+            	contentDiv = CreateToolTipDiv(that);
+            	haveMouseOver(that,contentDiv);
 			});
 			//鼠标离开（这里  对于鼠标移动到子物体及提示的文字上也不消失）
 			$root.mouseout(function(e){
@@ -83,6 +56,41 @@
 				});
 			});
 	}
+    
+    function haveMouseOver(that,contentDiv){
+    	//这里注意的是 tooltip的高度是conetentdiv加上arrowdiv的高度，而标题是contentdiv的子元素
+		var toolTipDivW = that.options.css.contentWidth+that.options.css.arrowWidth;
+    	var toolTipDivH = that.options.css.contentHeight+that.options.css.arrowWidth;
+    	var targetWidth = that.$.outerWidth();
+    	var targetHeight =that.$.outerHeight();
+    	var positiontop;
+    	var positionLeft;
+    	
+    	if(that.options.showDirection == "top"){
+    		positiontop = -toolTipDivH;
+		 	positionLeft = targetWidth/2-toolTipDivW/2;
+    	}
+    	else if(that.options.showDirection == "bottom"){
+    		//是否有标题栏
+    		if(that.options.showTitle){
+    			positiontop = targetHeight+that.options.css.arrowWidth+that.options.css.titleHeight;
+    		}else{
+    			positiontop = targetHeight+that.options.css.arrowWidth;
+    		}
+    		positionLeft = targetWidth/2-toolTipDivW/2;
+    		
+    	}
+    	else if(that.options.showDirection == "left"){
+    		positiontop = 0;
+    		positionLeft = -toolTipDivW;
+    	}
+    	else if(that.options.showDirection == "right"){
+    		positiontop = 0;
+    		positionLeft = targetWidth+that.options.css.arrowWidth;
+		}
+		ChangeDivPositioon(contentDiv,positionLeft,positiontop);
+		contentDiv.appendTo(that.$);
+    }
     
     function ChangeDivPositioon(contentDiv,left,top){
     	contentDiv.css({
@@ -109,26 +117,21 @@
     	else if(that.options.showDirection == "left"){
     		arrowDiv = CreateToolTipArrowRightDiv(that);
     	}
-    	if(!that.options.showTitle){
-    		that.options.titleWidth = 0;
-    		that.options.titleHeight = 0;
-    		that.options.title = "";
-		}
     	titleDiv.appendTo(contentDiv);
     	arrowDiv.appendTo(contentDiv);
     	return contentDiv;
-    	
     }
-    
-    
-    function CreateToolTipTitleDiv(that){
+
+	function CreateToolTipTitleDiv(that){
     	var div = $("<div>");
     	var titleWidth = that.options.css.titleWidth,
     		titleHeight = that.options.css.titleHeight,
     		titleBg = that.options.css.titleBgColor,
     		titleFontColor = that.options.css.titleFontColor,
     		boderRadius = that.options.css.boderRadius;
-    	
+    	if(!that.options.showTitle){
+    		div.css({"display":"none"});
+    	}
     	div.css({
     		"z-index":"99",
     		"position":"absolute",
@@ -153,7 +156,8 @@
     		contentBg = that.options.css.contentBgColor,
     		contentFontColor = that.options.css.contentFontColor,
     		boderRadius = that.options.css.boderRadius;
-    	var top = 200;
+    		
+    	var top = 300;
     	var left = 200;
     	
     	div.css({
@@ -182,7 +186,10 @@
     		
     	var left = contentWidth/2,
     		top =  -titleHeight-arrowWidth;
-    	
+    	//是否有标题栏
+    	if(!that.options.showTitle){
+    		top =  -arrowWidth;
+    	}
     	div.css({
     		"z-index":"99",
     		"position":"absolute",
@@ -229,7 +236,9 @@
     		arrowBgColor = that.options.css.arrowBgColor;
     	var left = -arrowWidth,
     		top =  contentHeight/2 - arrowWidth/2*3;
-    	
+    	if(!that.options.showTitle){
+			top =  contentHeight/2 - arrowWidth;
+    	}
     	div.css({
     		"z-index":"99",
     		"position":"absolute",
@@ -253,6 +262,10 @@
     		arrowBgColor = that.options.css.arrowBgColor;
     	var left = contentWidth,
     		top =  contentHeight/2 - arrowWidth/2*3;
+		if(!that.options.showTitle){
+			top =  contentHeight/2 - arrowWidth;
+    	}
+    		
     	div.css({
     		"z-index":"99",
     		"position":"absolute",
