@@ -1,5 +1,5 @@
 (function($,doucument){
-	
+	'use strict';
 	var NAME = "Message",
 	DEFAULTS = {
     	css:{
@@ -25,23 +25,24 @@
     };
 	
 	var idIncrementer = 0;
-	var divLength;
-	var messageDiv;
-	var isshow = false;
 	var Message = function(element,options){
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
         that.init();
 	}
 	
 	Message.DEFAULTS = DEFAULTS;
     Message.NAME     = NAME;
     
+    Message.prototype.messageDiv = null;
+    Message.prototype.divLength = null;
+    Message.prototype.isshow = false;
     //初始化
     Message.prototype.init = function(){
-    	console.log("init");
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
@@ -50,31 +51,26 @@
         	that.options.css.bgColor ="rgba(0,0,0,1)";
         	that.options.css.contentColor = "rgba(0,0,0,0.5)";
         }
-        console.log(that);
-        //创建出来    
-        messageDiv = CreatDiv(that);
-        $.HideNode(messageDiv);
-        messageDiv.appendTo("body");
+        
+        //创建出来
+        this.messageDiv = this.CreatDiv(that);
+        this.messageDiv.appendTo("body");
+        $.HideNode(this.messageDiv);
 	}
     
-    
-    Message.prototype.show = function(){
-    	console.log(that);
-    }
-    
-    function CreatDiv(that){
-    	var contentDiv = CreateMessageDiv(that);
-    	var btnDiv = CreateMessageBtn(that);
-    	var iconDiv = CreationIcon(that);
-    	var img = CreateImg(that);
+    Message.prototype.CreatDiv = function(that){
+    	var contentDiv = this.CreateMessageDiv(that);
+    	var btnDiv = this.CreateMessageBtn(that);
+    	var iconDiv = this.CreationIcon(that);
+    	var img = this.CreateImg(that);
     	img.appendTo(btnDiv);
     	btnDiv.appendTo(contentDiv);
     	iconDiv.appendTo(contentDiv);
-    	
     	return contentDiv;
     }
     
-    function CreateMessageDiv(that){
+    Message.prototype.CreateMessageDiv = function(that){
+    	
     	var height = that.options.css.height,
     		fontSize = that.options.css.fontSize,
     		border = that.options.css.boder,
@@ -108,17 +104,17 @@
     	});
     	var word = that.options.content;
     	div.text(word);
-    	divLength = word.length*16;
+    	this.divLength = word.length*16;
     	return div;
     }
     
-    function CreateMessageBtn(that){
+    Message.prototype.CreateMessageBtn = function(that){
     	var div = $("<div>");
     	var width = that.options.css.btnWidth,
     		height = that.options.css.height,
     		border = that.options.css.radius,
     		bgColor = that.options.css.bgColor;
-    	var left = divLength;
+    	var left = this.divLength;
 
 		div.css({
     		"position":"absolute",
@@ -134,7 +130,7 @@
     	return div;
     }
     
-    function CreationIcon(that){
+    Message.prototype.CreationIcon = function(that){
     	var div = $("<div>");
     	var left = that.options.css.iconWidth,
     		width = that.options.css.iconWidth,
@@ -155,7 +151,7 @@
     	return div;
     }
     
-    function CreateImg(that){
+    Message.prototype.CreateImg = function(that){
     	var img = $("<img>").attr("src",that.options.btnImg);
     	var width = that.options.css.imgWidth,
     		height = that.options.css.imgHeight,
@@ -163,7 +159,6 @@
     		contentColor = that.options.css.contentColor;
     	var left =  that.options.css.btnWidth/2 - width/2;
     	var top = that.options.css.height/2	- height/2;
-    	console.log(left+"————"+ top);
     	img.css({
     		"position":"absolute",
     		"left":left+ "px",
@@ -187,43 +182,44 @@
 			$(e.target).parent("div").css({"background-color":bgColor
 			});
     	});
-    	
+    	var oo = this;
     	img.click(function(e){	
-    		HideAndReset();
+    		oo.HideAndReset();
     	    that.options.clickClose();
     	});
     	return img;
     }
     
-    function HideAndReset(){
-    	$.HideNode(messageDiv);
-    	messageDiv.animate({top:'+=20%'},100);
+    Message.prototype.HideAndReset = function(){
+    	$.HideNode(this.messageDiv);
+    	this.messageDiv.animate({top:'+=20%'},100);
     }
-   
-  	$.fn.show = function(configs){
-  		if(!isshow){
-  			$.ShowNode(messageDiv);
-			messageDiv.animate({top:'-=20%',speed:"slow"});
-			isshow = true;
-			setTimeout(function()	 {
-				HideAndReset();
-				isshow = false;
+    
+  	Message.prototype.show = function(configs){
+  		if(!this.isshow){
+  			$.ShowNode(this.messageDiv);
+			this.messageDiv.animate({top:'-=20%',speed:"slow"});
+			this.isshow = true;
+			var that = this;
+			setTimeout(function(){
+				that.HideAndReset();
+				that.isshow = false;
 			}, 3000);
-			console.log("id___"+idIncrementer);
   		}	
   		return this;
   	}
   	
     //入口方法
      $.fn.message = function(option) {
-        return this.each(function() {
-            var $this = $(this)
-            var data = $this.data('xh.Message')
-            var options = typeof option == 'object' && option
-            if(!data) $this.data('xh.Message', (data = new Message(this, options)))
-        })
-    }
-    
+//      return this.each(function() {
+//          var $this = $(this)
+//          var data = $this.data('xh.Message')
+//          var options = typeof option == 'object' && option
+//          if(!data) $this.data('xh.Message', (data = new Message(this, options)))
+//      })
+        
+        return new Message(this, option);
+   	}
     //构造
     $.fn.message.Constructor = Message;
 }(jQuery, document))
