@@ -1,13 +1,13 @@
 var options0 = {
 	MessageType:"important",			//common 普通消息, important 重要提示消息
     position:"top",						///消息提示框的位置， 上 top   中center   下bottom
-	content:"这是是配置的提示零！！",
+	content:"这是重要配置的提示零！！",
 }
 
 var options1 = {
 	MessageType:"important",			//common 普通消息, important 重要提示消息
     position:"center",						///消息提示框的位置， 上 top   中center   下bottom
-	content:"这是是配置的提示一！！",
+	content:"这是是配置的提示一略s略略！！",
 }
 
 var options2 = {
