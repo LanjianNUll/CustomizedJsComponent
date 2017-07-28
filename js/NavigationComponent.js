@@ -14,84 +14,11 @@
 			subNavLeft:200,
 			subNavTop:-120,
 			fontColor:"#ffffff",
+			subNavChildHeight:40,
+			subNavChildMarginTopGap:5,
+			iconWidth:30,
 		},
-    	data:[
-    		{imgSrc:"../img/矢量智能对象.png",title:"这默认标题1",
-    				subdata:[
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题11",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    					]
-    				},
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题12",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    					]
-    				},
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题13",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子标题");}},
-    					]
-    				}
-    				]
-    		},
-    		
-    		{imgSrc:"../img/矢量智能对象.png",title:"这默认标题2",
-    				subdata:[
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题111",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    					]
-    				},
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题2222",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子子标题");}},
-    					]
-    				},
-    				]
-    		},
-    		
-    		{imgSrc:"../img/矢量智能对象.png",title:"这默认标题3",
-    				subdata:[
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    					]
-    				},
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    					]
-    				},
-    				{
-    					icon:"../img/矢量智能对象.png",content:"子标题",click:function(){console.log("你点击了次级标题");},
-    					subdata:[
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    						{icon:"",content:"子子标题",click:function(){console.log("你点击了子吱吱标题");}},
-    					]
-    				}
-    				]
-    		}
-    		
-    	],
+    	
     };
 	
 	var idIncrementer = 0;
@@ -185,8 +112,8 @@
 		div.mouseover(function(e){
 			if($(e.target).attr("name")){
 				highlightBgColor($(e.target));
-				highlightBgColor($(e.target).find("p"));
-				highlightBgColor($(e.target).find("img"));
+				highlightBgColor($(e.target).children("p"));
+				highlightBgColor($(e.target).children("img"));
 	    		var index = parseInt($(e.target).attr("index"));
     			//将div恢复正常
 				ResetNomal(itemArr,index);
@@ -270,8 +197,16 @@
 		var x = arr.subdata.length
 		for(var i = 0;i < x;i++){
 			var subDiv = this.CreateSubChildDiv(that,index,i,-1);			//root为一个标识  root为二级菜单的
-			subDiv.children("p").text(arr.subdata[i].content);
-			subDiv.children("img").attr("src",arr.subdata[i].imgSrc);
+			subDiv = this.fillSubDivContent(that,subDiv,index);
+			subDiv.children("div").text(arr.subdata[i].content);
+			subDiv.children("img").attr("src",arr.subdata[i].icon);
+			//点击div 和 img的  触发  subDiv的click
+			subDiv.children("div").click(function(e){
+				$(e.target).parent("div").click();
+			});
+			subDiv.children("img").click(function(e){
+				$(e.target).parent("div").click();
+			});
 			var obj = this;
 			subDiv.click(function(e){
 				var flagIndex = parseInt($(e.target).attr("index"));
@@ -301,11 +236,18 @@
 			var ssDivArray = [];
 			for(var j = 0;j<arra.length;j++){
 				var ssDiv = this.CreateSubChildDiv(that,index,i,0);			//标识为最低的菜单
+				ssDiv = this.fillSubDivContent(that,ssDiv,index);
 				ssDivArray.push(ssDiv);
 				ssDiv.toggle(false);	//默认收起的
 				//填充内容
-				ssDiv.children("p").text(arra[j].content);
-				ssDiv.children("img").attr("src",arra[j].imgSrc);
+				ssDiv.children("div").text(arra[j].content);
+				ssDiv.children("img").attr("src",arra[j].icon);
+				//没有图标就隐藏
+				if(arra[j].icon == "" || !arra[j].icon){
+					ssDiv.children("img").css({
+						"display":"none"
+					});
+				}
 				ssDiv.click(function(e){
 					var lowIndex = parseInt($(e.target).attr("lowIndex"));
 					//触发函数
@@ -319,6 +261,8 @@
 	}
 	/// itemIndex  导航栏root（最顶部）   index  中间的index
 	Navigation.prototype.CreateSubChildDiv = function(that,itemIndex,index,flag){
+		var height = that.options.css.subNavChildHeight;
+		var subNavChildMarginTopGap = that.options.css.subNavChildMarginTopGap;
 		//添加一个标识
 		var div = $("<div>").attr("subchild",true);
 		if(flag == -1){
@@ -329,52 +273,76 @@
 		}
 		var  fontColor = that.options.css.fontColor;
 		div.css({
-			"margin-top":5 + "px",
-			"width": 300 + "px",
-			"height":60 + "px",
-			"background-color":"rgba(0,0,0,0.8)",
+			"margin-top":subNavChildMarginTopGap + "px",
+			"width": "auto",
+			"height": height + "px",
+			"background-color":bgColor,
 			"color":fontColor,
 		});
 		
 		div.mouseover(function(e){
 			highlightBgColor($(e.target));
+			highlightBgColor($(e.target).children("div"));
+			highlightBgColor($(e.target).children("img"));
 		});
 		
 		div.mouseout(function(e){
 			normalBgColor($(e.target));
+			normalBgColor($(e.target).children("div"));
+			normalBgColor($(e.target).children("img"));
 		});
-		
-		//图标和标题
-		var img = $("<img>").attr("src","../img/矢量智能对象.png").attr("index",index);
-		img.css({
-			"positon":"absolute",
-			"display":"inline",
-			"cursor":"pointer",
-			"top":30+"px",
-			"left":35+"px",
-			"width":30+"px",
-			"height":30+"px"
-		});
-		
-		var p = $("<p>").attr("index",index);
-		var  fontColor = that.options.css.fontColor;
-		p.css({
-			"positon":"absolute",
-			"display":"inline-block",
-			"top":45+"px",
-			"left":5+"px",
-			"color":fontColor,
-			"cursor":"pointer",
-		});
-		
-		p.text("这里是标题 ");
-		
-		img.appendTo(div);
-		p.appendTo(div);
 		
 		return div;
 	}
 	
+	Navigation.prototype.fillSubDivContent = function(that,div,index){
+		var iconWidht = that.options.css.iconWidth;
+		//图标和标题
+		var img = $("<img>").attr("src","../img/矢量智能对象.png").attr("index",index);
+		img.css({
+			"positon":"absolute",
+			"cursor":"pointer",
+			"top":15+"px",
+			"left":25+"px",
+			"width":iconWidht+"px",
+			"height":iconWidht+"px"
+			
+		});
+		img.mouseover(function(e){
+			highlightBgColor($(e.target));
+			highlightBgColor($(e.target).parent("div"));
+			highlightBgColor($(e.target).next("div"));
+		});
+		img.mouseout(function(e){
+			normalBgColor($(e.target));
+			normalBgColor($(e.target).parent("div"));
+			normalBgColor($(e.target).next("div"));
+		});
+		img.appendTo(div);
+		
+		var p = $("<div>").attr("index",index);
+		var  fontColor = that.options.css.fontColor;
+		p.css({
+			"positon":"absolute",
+			"display":"inline",
+			"top":15+"px",
+			"left":65+"px",
+			"color":fontColor,
+			"cursor":"pointer",
+		});
+		p.mouseover(function(e){
+			highlightBgColor($(e.target));
+			highlightBgColor($(e.target).parent("div"));
+			highlightBgColor($(e.target).prev("img"));
+		});
+		p.mouseout(function(e){
+			normalBgColor($(e.target));
+			normalBgColor($(e.target).parent("div"));
+			normalBgColor($(e.target).prev("img"));
+		});
+		p.appendTo(div);
+		return div;
+	}
 	
 	function ResetNomal(itemArr,index){
 		for(var i = 0 ; i<itemArr.length; i++){
