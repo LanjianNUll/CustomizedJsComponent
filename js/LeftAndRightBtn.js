@@ -28,9 +28,11 @@
 	var LeftRightBtn = function(element,options){
 		var that     = this;
         that.$       = $(element);
-        var oldOptions = options;
+       	var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
-        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
+        if(oldOptions != undefined && oldOptions.css!= undefined){
+        	that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
+        }
         that.init();
 	}
 	

@@ -31,7 +31,7 @@
         that.id      = idIncrementer++;
         var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
-        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
+		that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
         that.init();
 	}
 	
@@ -88,7 +88,7 @@
     	}
     	var div = $("<div>");
     	div.css({
-    		"position":"absolute",
+    		"position":"fixed",
     		"left":left,
     		"top":top,
     		"line-height":height+"px",

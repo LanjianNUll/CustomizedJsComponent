@@ -36,7 +36,7 @@
 	Navigation.DEFAULTS = DEFAULTS;
     Navigation.NAME     = NAME;
     
-    
+    //定义了一些数组记录子菜单以及次级菜单等
     Navigation.prototype.Subdiv = [];
     Navigation.prototype.ItemGroup = [];
     Navigation.prototype.SSubdiv = []; 
