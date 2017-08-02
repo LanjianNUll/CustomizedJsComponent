@@ -6,111 +6,41 @@
 	</head>
 	<script src="../js/lib/jquery.js" ></script>
 	<script src="../js/PullDownComponent.js" ></script>
+	<script src="../js/tool.js"></script>
+	<script src="../js/data/provice_city_area.js"></script>
 	<script src="../DemoTestJS/pullDownDemoTest.js"></script>
 	
 	<style>
 	
-	.divSt{
-		
-		background-color: rgba(3,254,239,0.8);
-		
-	}
-	
-	.selectss{
-		width: 100px;
-		height: auto;
-		appearance:none;
-		border: none;
-	}	
-	
-	.yy{
-		position: absolute;
-		left: 100px;
-		top: 100px;
-				
-	}
 	.yy1{
 		position: absolute;
 		left: 120px;
 		top: 20px;
 				
 	}
-	
-	
-	.spandd{
+	.yy11{
 		position: absolute;
-		text-align: center;
-		width: 100px;
-		height: 50px;
-		line-height: 50px;
-		border-bottom-left-radius: 5px;
-		border-top-left-radius: 5px;
-		background-color: rgba(3,254,239,0.8);
+		left: 20px;
+		top: 300px;
+				
 	}
 	
-	.spandd1{
+	.yy12{
 		position: absolute;
-		left: 100px;
-		width: 200px;
-		height: 48px;
-		line-height: 48px;
-		border-bottom-right-radius: 5px;
-		border-top-right-radius: 5px;
-		border: 1px solid rgba(3,254,239,1);
-		border-color: rgba(3,254,239,1);
-		color: #FFFFFF;
-		background-color: transparent;
+		left: 550px;
+		top: 300px;
+				
 	}
 	
-	.imgstyle{
+	.yy2{
 		position: absolute;
-		width: 20px;
-		height: 20px;
-		left: 180px;
-		top: 14px;
+		right: 200px;
+		top:400px;
+		color:#FFFFFF;
 	}
 	
-	.textt{
-		position: absolute;
-		left: 0px;
-		top: 0px;
-		width: 200px;
-		height: 48px;
-		line-height: 48px;
-		text-align: center;
-	}
 	
-	.divparent{
-		position: absolute;
-		left: 0px;
-		top:50px;
-		width: 200px;
-		height: 300px;
-		overflow-y: scroll;
-		overflow-x: hidden;
-		line-height: 48px;
-		background-color: rgba(0,0,0,0.2);
-	}
 	
-	.divparentChildren{
-		position: relative;
-		text-align: center;
-		width: 200px;
-		height: 48px;
-		background-color: rgba(0,0,0,0.2);
-	}
-	
-	.spandd2{
-		position: absolute;
-		left: 300px;
-		width: 200px;
-		height: 48px;
-		border-bottom-right-radius: 5px;
-		border-top-right-radius: 5px;
-		border: 1px solid rgba(3,254,239,1);
-		background-color: transparent;
-		color: #FFFFFF;
-	}
 	
 	body{
 		background-image: url(../img/bg.jpg);
@@ -146,9 +76,32 @@
 		</div>
 		-->
 		
-		<div id="pp" class="yy1">
+		<div id="ff" class="yy1">
 			
 		</div>
+		<div id="ff1" class="yy11">
+			
+		</div>
+		<div id="ff2" class="yy12">
+			
+		</div>
+		<div class="yy2">
+			<div id="value1" >
+			三联级菜单的值:
+			</div >
+			</br>
+			<div id="value2" >
+				二联级菜单的值：
+			</div>
+			</br>
+			<div id="value3">
+				单个下拉框的值：
+			</div>
+			</br>
+			</br>
+			<button onclick= "getValue()">获取当前的值</button>
+		</div>
+		
 		
 	</body>
 </html>

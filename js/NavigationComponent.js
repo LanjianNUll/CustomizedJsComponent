@@ -24,6 +24,7 @@
 	var idIncrementer = 0;
 	var bgColor,mouseOverColor;
 	var Navigation = function(element,options){
+		console.log('init');
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
@@ -376,5 +377,5 @@
     }
     
     //构造
-    $.fn.navigation.Constructor = Navigation;
+	 $.fn.navigation.Constructor = Navigation;
 }(jQuery, document))
