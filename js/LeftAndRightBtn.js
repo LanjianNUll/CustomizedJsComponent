@@ -19,9 +19,11 @@
 			mouseOverColor:"rgba(0,0,0,0.8)",
 			clickColor:"#000000"
 		},
-		ImageWidth:20,
-		leftImagePath:"img/trian_left.png",
-		rightImagePath:"img/trian_right.png"
+		imageWidth:20,
+		leftImagePath:"../img/trian_left.png",
+		rightImagePath:"../img/trian_right.png",
+		purePicBtn:false,
+		imgGapWidth:120,
 		
     };
 	var idIncrementer = 0;
@@ -43,17 +45,24 @@
     LeftRightBtn.prototype.init = function(){
     	var that       = this,
             $root      = that.$,
-            eventSuffix    = '.' + NAME + '.' + that.id;
+            eventSuffix    = '.' + NAME + '.' + that.id; 
             
-          	var leftBtn = CreateBtnNode(0,that);
-            var rightBtn  = CreateBtnNode(1,that);
-            var leftImg = CreateImgeNode(that.options.leftImagePath,that);
-            var rightImg =  CreateImgeNode(that.options.rightImagePath,that);
-            
-            leftImg.appendTo(leftBtn);
-            rightImg.appendTo(rightBtn);
-            leftBtn.appendTo(that.$);
-            rightBtn.appendTo(that.$);
+     	//区分是纯图片按钮
+        if(that.options.purePicBtn){
+        	that.options.css.backgroundColor = "transparent";
+        	that.options.css.mouseOverColor = "transparent";
+        	that.options.css.clickColor = "transparent";
+      		that.options.css.width = that.options.imgGapWidth;
+        }
+      	var leftBtn = CreateBtnNode(0,that);
+        var rightBtn  = CreateBtnNode(1,that);
+        var leftImg = CreateImgeNode(that.options.leftImagePath,that);
+        var rightImg =  CreateImgeNode(that.options.rightImagePath,that);
+        
+        leftImg.appendTo(leftBtn);
+        rightImg.appendTo(rightBtn);
+        leftBtn.appendTo(that.$);
+        rightBtn.appendTo(that.$);
 	}
     
     function CreateBtnNode(btnFlag,that){
@@ -116,7 +125,7 @@
     }
     
     function CreateImgeNode(path,that){
-    	var ImgWidth = that.options.ImageWidth;
+    	var ImgWidth = that.options.imageWidth;
     	var btnWidth = that.options.css.width,
     	 	btnheight = that.options.css.height,
     	 	bgColor = that.options.css.backgroundColor,

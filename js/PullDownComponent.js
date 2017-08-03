@@ -14,7 +14,7 @@
 			selectDivHeight:200,
 			selectBgColor:'rgba(0,0,0,0.2)',
 		},
-		title:"地址",
+		title:null,
 		pullDownIcon:"../img/up.png",
 		titleContent:[],
 		data:[],
@@ -57,8 +57,11 @@
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id;
         $root.attr("idIncrementer",idIncrementer);
-        var titleSpan = this.CreateTitleSpan(that);
-         titleSpan.appendTo($root);
+        
+        if(that.options.title != null){
+        	var titleSpan = this.CreateTitleSpan(that);
+         	titleSpan.appendTo($root);
+        }
         //根据data生成
         var dataArray = that.options.titleContent;
         var left = 0,

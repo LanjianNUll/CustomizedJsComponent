@@ -7,11 +7,8 @@
 	DEFAULTS = {
 		pageItemClick:function(pageNum){
 			//0  表示上一页   -1 表示下一页
-				console.log("当前点击页为： "+pageNum);
 			},
 		css:{
-			width: 600,
-			height:60,
 			circleWidth:60,
 			circleHeight:60,
 			radius:30,
@@ -35,10 +32,11 @@
    	};
    	
 	var idIncrementer = 0;
-	var circleArray = [];
+	//var circleArray = [];
 	
 	var PageComponent = function(element,options){
 		var that     = this;
+		this.circleArray = [];
         that.$       = $(element);
         that.id      = idIncrementer++;
         var oldOptions = options;
@@ -60,22 +58,22 @@
         	cricleNum = that.options.MaxPageNum;
         }
         //0  表示上一页   -1 表示下一页
-        var prePageItem = CreateCircle(that,0,that.options.PrePageContent);
-        var lastPageItem = CreateCircle(that,-1,that.options.LastPageContent);
+        var prePageItem = this.CreateCircle(that,0,that.options.PrePageContent);
+        var lastPageItem = this.CreateCircle(that,-1,that.options.LastPageContent);
         
         prePageItem.appendTo(that.$);
         for(var i = 1; i < cricleNum+1; i++){
-        	var pageItem = CreateCircle(that,i);
-        	circleArray.push(pageItem);
+        	var pageItem = this.CreateCircle(that,i);
+        	this.circleArray.push(pageItem);
         	pageItem.appendTo(that.$);
         }
         lastPageItem.appendTo(that.$);
         if(cricleNum !=0){
-        	SetCurrentPageNum(that,that.options.CurrentPageNum);
+        	this.SetCurrentPageNum(that,that.options.CurrentPageNum);
         }
 	}
     
-    function CreateCircle(that,i,textContent){
+   	PageComponent.prototype.CreateCircle = function(that,i,textContent){
     	 var circleWidth = that.options.css.circleWidth,
     	 	circleHeight = that.options.css.circleHeight,
          	radius = that.options.css.radius,
@@ -123,7 +121,7 @@
 			});
 			}
 		});
-		
+		var obj = this;
 		divNode.click(function(e){
 			var pageIndex = parseInt($(e.target).attr("pageIndex"));
 			var maxPageNum = that.options.MaxPageNum;
@@ -132,7 +130,7 @@
 					//点击的上一页操作
 					if(that.options.CurrentPageNum>1){
 						that.options.CurrentPageNum = that.options.CurrentPageNum-1;
-						SetCurrentPageNum(that,that.options.CurrentPageNum);
+						obj.SetCurrentPageNum(that,that.options.CurrentPageNum);
 						that.options.pageItemClick(that.options.CurrentPageNum)
 					}else{
 						that.options.pageItemClick(1)
@@ -141,14 +139,14 @@
 		    		//点击的下一页操作
 		    		if(that.options.CurrentPageNum < that.options.PageNum){
 						that.options.CurrentPageNum = that.options.CurrentPageNum+1;
-						SetCurrentPageNum(that,that.options.CurrentPageNum);
+						obj.SetCurrentPageNum(that,that.options.CurrentPageNum);
 						that.options.pageItemClick(that.options.CurrentPageNum)
 					}else{
 						that.options.pageItemClick(that.options.CurrentPageNum)
 					}
 		    	}else{
 		    		that.options.CurrentPageNum = pageIndex;
-					SetCurrentPageNum(that,that.options.CurrentPageNum);
+					obj.SetCurrentPageNum(that,that.options.CurrentPageNum);
 					that.options.pageItemClick(that.options.CurrentPageNum)
 		    	}
 			}else{
@@ -172,7 +170,7 @@
     	return divNode;
     }
     
-    function SetCurrentPageNum(that,currentIndex)
+    PageComponent.prototype.SetCurrentPageNum = function (that,currentIndex)
     {
     	var bgColor = that.options.css.backgroundColor,
          	borderColor = that.options.css.borderColor,
@@ -181,17 +179,16 @@
         	mouseOverFontColor = that.options.css.mouseOverFontColor,
     		mouseOverBoderColor = that.options.css.mouseOverBoderColor;
     		
-    	for(var i = 0;i<circleArray.length;i++){
-    		circleArray[i].css({
+    	for(var i = 0;i<this.circleArray.length;i++){
+    		this.circleArray[i].css({
     		"border-color": borderColor,
 			"background-color": bgColor,
 			"color":fontColor
     		});
     	}
     	
-  		console.log("当前的页数："+currentIndex);
-    	circleArray[currentIndex-1].css({
-			"background-color": bgColor,
+    	this.circleArray[currentIndex-1].css({
+			"background-color": mouseOverColor,
 			"color":mouseOverFontColor,
 			"border-color": mouseOverBoderColor
     	});

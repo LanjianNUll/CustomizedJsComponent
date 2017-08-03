@@ -15,7 +15,7 @@
     		borderBottomW:0,
     		borderRightW:0,
     		borderColor:"#ffffff",
-    		bgColor:"#EEE5DE",
+    		bgColor:"rgba(256,256,256,0.8)",
     		mouseOverColor:"#EEB422",				//鼠标进入的颜色
     		mouseOutColor:"#EEE5DE"
     	}

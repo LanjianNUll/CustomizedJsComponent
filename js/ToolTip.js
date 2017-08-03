@@ -4,6 +4,9 @@
 	var NAME = "ToolTip",
 	DEFAULTS = {
 		showDirection:"right",
+		showTitle:false,
+		title:"这里是默认标题",
+		content:"这里是默认内容这里是默认内容这里是默认内容这里是默认内容这里是内容这里是内容",
 		css:{
 			contentWidth:200,
 			contentHeight:100,
@@ -17,9 +20,7 @@
 			arrowBgColor:"rgba(0,0,0,0.8)",
 			boderRadius:5,
 		},
-		showTitle:false,
-		title:"这里是默认标题",
-		content:"这里是默认内容这里是默认内容这里是默认内容这里是默认内容这里是内容这里是内容",
+		
     };
 	
 	var idIncrementer = 0;

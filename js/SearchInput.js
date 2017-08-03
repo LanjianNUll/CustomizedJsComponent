@@ -11,7 +11,7 @@
 		},
 		dataArray:[],
 		inputTip:"输入您想要查找的应用",
-		sreachbtnImg:"img/searchInput.png",
+		sreachbtnImg:"../img/searchInput.png",
 		css:{
 			inputWidth:300,
 			inputHeight:40,
