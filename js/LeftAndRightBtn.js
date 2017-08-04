@@ -1,6 +1,9 @@
 (function($,doucument){
+	//使用严格模式（主要是为了规范语法）
 	'use strict';
+	//该组件的名称
 	var NAME = "LeftRightBtn",
+	//这里的配置信息  见名知义
 	DEFAULTS = {
 		leftBtnClick:function(parm){
 			console.log("leftBtn click");
@@ -26,7 +29,9 @@
 		imgGapWidth:120,
 		
     };
+    //组件的id  相当于计数 这类组件的全局变量
 	var idIncrementer = 0;
+	//左右按钮组件类
 	var LeftRightBtn = function(element,options){
 		var that     = this;
         that.$       = $(element);
@@ -54,18 +59,21 @@
         	that.options.css.clickColor = "transparent";
       		that.options.css.width = that.options.imgGapWidth;
         }
+        //创建左右组件及其图标
       	var leftBtn = CreateBtnNode(0,that);
         var rightBtn  = CreateBtnNode(1,that);
         var leftImg = CreateImgeNode(that.options.leftImagePath,that);
         var rightImg =  CreateImgeNode(that.options.rightImagePath,that);
-        
+        //组装各个组件
         leftImg.appendTo(leftBtn);
         rightImg.appendTo(rightBtn);
         leftBtn.appendTo(that.$);
         rightBtn.appendTo(that.$);
 	}
     
+    //创建按钮节点btnFlag 左右按钮的标识  that 配置信息（通过传参的形式，避免出错）
     function CreateBtnNode(btnFlag,that){
+    	//获取配置信息的值
     	var btnWidth = that.options.css.width,
     	 	btnHeight = that.options.css.height,
          	radius = that.options.css.radius,
@@ -84,6 +92,7 @@
     	var btn = $("<div>");
     	//添加左右键标识  0 ：左键， 1 ：右键
     	btn.attr("flag",btnFlag);
+    	//设置节点的样式
     	btn.css({
     		"display": "inline-block",
 			"width":btnWidth + "px",
@@ -99,18 +108,21 @@
 			"border-bottom-right-radius":rightRadius
     	});	
     	//按钮事件
+    	//鼠标移动到按钮触发事件
     	btn.mouseover(function(e){
 			$(e.target).css({"background-color": mouseOverColor,
 			});
 			$(e.target).find("img").css({"background-color": mouseOverColor,
 			});
 		});
+		//鼠标离开按钮触发事件
 		btn.mouseout(function(e){
 			$(e.target).css({"background-color":bgColor
 			});
 			$(e.target).find("img").css({"background-color": bgColor,
 			});
 		});
+		//鼠标鼠标点击事件
     	btn.click(function(e){
     		var flag = $(e.target).attr("flag");
     		if(btnFlag == 0){
@@ -124,6 +136,7 @@
     	return btn;
     }
     
+    //创建图片节点
     function CreateImgeNode(path,that){
     	var ImgWidth = that.options.imageWidth;
     	var btnWidth = that.options.css.width,
@@ -159,7 +172,7 @@
     	return img;
     }
     
-    //入口方法
+    //入口方法  这里是入口方法  其实也可以直接返回 new LeftRightBtn(this, option)
      $.fn.leftAndRightBtn = function(option) {
         return this.each(function() {
             var $this = $(this)

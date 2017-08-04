@@ -15,8 +15,8 @@
     		borderBottomW:0,
     		borderRightW:0,
     		borderColor:"#ffffff",
-    		bgColor:"rgba(256,256,256,0.8)",
-    		mouseOverColor:"#EEB422",				//鼠标进入的颜色
+    		bgColor:"rgba(3,254,239,0.8)",
+    		mouseOverColor:"rgba(3,254,239,0.8)",				//鼠标进入的颜色
     		mouseOutColor:"#EEE5DE"
     	}
    };
@@ -26,7 +26,9 @@
 		var that     = this;
         that.$       = $(element);
         that.id      = idIncrementer++;
+        var oldOptions = options;
         that.options = $.extend({}, DEFAULTS, that.$.data(), options);
+        that.options.css =  $.extend({}, DEFAULTS.css, oldOptions.css);
         that.init();
 	}
 	
@@ -35,25 +37,23 @@
     
     //初始化
     AutoComplete.prototype.init = function(){
+    	console.log("init");
     	var that       = this,
             $root      = that.$,
             eventSuffix    = '.' + NAME + '.' + that.id,
             InputEvent = "input"+eventSuffix,
             PropertychangeEvent = "propertychange"+eventSuffix,
             ChangeEvent   = "change"+eventSuffix;
+            
        if(!that.options.AutoSwitch){
        		//开启提示账号
        		return;
        }
     	//保存初始化
     	that.store	 = new Store();
-    	//清理
-        //that.store.pageClear();
-    	//添加几个测试
-        //that.store.pageSet(that.id,["a","abc","abcdd","adf"]);
     	//创建一个父节点来放置
     	var parent = $("<div>");
-    	var left = that.$.offset().left
+    	var left = that.$.offset().left;
 		var top = that.$.offset().top+that.$.outerHeight(true);
 		var posi = that.$.css('position');
     	parent.css({"background-color":"#FFFFFF",
@@ -69,8 +69,8 @@
     	div.appendTo("body");
     	
     	//定义item的宽高
-		var itemH = that.options.css.width || that.$.outerHeight(true);
-		var itemW = that.options.css.height || that.$.outerWidth(true);
+		var itemH = that.options.css.height || that.$.outerHeight(true);
+		var itemW = that.options.css.width || that.$.outerWidth(true);
     	var borderTopW = that.options.css.borderTopW || 0,
     		borderBottomW = that.options.css.borderBottomW || 0,
     		borderLeftW = that.options.css.borderLeftW || 0,
@@ -222,12 +222,7 @@
     
     //入口方法
     $.fn.autoInput = function(option) {
-        return this.each(function() {
-            var $this = $(this)
-            var data = $this.data('xh.autocomplete')
-            var options = typeof option == 'object' && option
-            if(!data) $this.data('xh.autocomplete', (data = new AutoComplete(this, options)))
-        })
+        return new AutoComplete(this, option);
     }
     
     //构造

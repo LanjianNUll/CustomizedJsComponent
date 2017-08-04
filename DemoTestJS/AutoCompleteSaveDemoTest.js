@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	
+	 console.log("自动保存输入组件测试");
 	/**
 	 * 自动保存输入的组件：
 	 * 1，配置点击 事件  ：
@@ -24,8 +26,8 @@ $(document).ready(function(){
 	//账号保存本地  提示组件
 	var options = {
       	css:{
-    		width:null,								//
-    		height:null,							//线框的宽度  0 则表示没有
+//  		width:null,								//
+//  		height:60,							//线框的宽度  0 则表示没有
     		borderTopW:1,
     		borderBottomW:0,
     		borderRightW:0,
@@ -35,4 +37,5 @@ $(document).ready(function(){
     	}
    };
     $("#inputTest").autoInput(options);
+   
 });
