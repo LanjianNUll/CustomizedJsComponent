@@ -2,7 +2,6 @@
 	'use strict';
 	var NAME = "Navigation",
 	DEFAULTS = {
-		
 		css:{
 			navWidth:180,
 			navHeight:120,

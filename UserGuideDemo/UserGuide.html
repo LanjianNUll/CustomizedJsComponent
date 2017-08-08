@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<script type="text/javascript" src="../js/lib/jquery.js" ></script>
+	<script src="../js/PageControlComponent.js"></script>
+	<style>
+		textarea{
+			position: absolute;
+			right: 50px;
+			width:40%;
+			height: 80%;
+		}
+		.btn{
+			position: absolute;
+			left: 50%;		
+		}
+		.component{
+			position: absolute;
+			left: 10%;
+			top: 40%;
+		}
+		
+		body{
+			background-image:url(../img/bg.jpg);
+		}
+		
+		#tt{
+			position: absolute;
+			right: 50px;
+			width:40%;
+			height: 80%;
+			color: #FFFFFF;
+		}
+		
+	</style>
+	
+	<body>
+		<div id="yy" class="component">
+			
+		</div>
+		
+		<div id="tt">
+			circleWidth：
+			<input type="text" name="" id="" value="60" />
+			</br>
+			</br>
+			circleHeight：
+			<input type="text" name="" id="" value="60" />
+			</br>
+			</br>
+			radius：
+			<input type="text" name="" id="" value="30" />
+			</br>
+			</br>
+			backgroundColor：
+			<input type="text" name="" id="" value="rgba(0,0,0,0)" />
+			</br>
+			</br>
+			borderColor：
+			<input type="text" name="" id="" value="#000000" />
+			</br>
+			</br>
+			borderWidth：
+			<input type="text" name="" id="" value="1" />
+			</br>
+			</br>
+			mouseOverColor：
+			<input type="text" name="" id="" value="rgba(0,0,0,0)" />
+			</br>
+			</br>
+			mouseOverBoderColor：
+			<input type="text" name="" id="" value="#03feef" />
+			</br>
+			</br>
+			fontSize：
+			<input type="text" name="" id="" value="20" />
+			</br>
+			</br>
+			gapWidth：
+			<input type="text" name="" id="" value="20" />
+			</br>
+			</br>
+			fontColor：
+			<input type="text" name="" id="" value="#03feef" />
+			</br>
+			</br>
+			
+		</div>
+		
+		<button class="btn" onclick="refresh()"> 提   交 </button>
+		
+	</body>
+	
+	<script>
+		
+		$(document).ready(function(){
+			//无任何配置 （简单的上下页）
+			$("#yy").pageComponent();
+		});
+		
+		function refresh(){
+			
+		}
+		
+	</script>
+</html>
